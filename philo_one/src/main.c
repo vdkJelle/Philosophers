@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 11:41:10 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/05/24 17:31:26 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/06/21 16:09:48 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	check_arguments(int ac, char **av)
 		while (av[ac - 1][i])
 		{
 			if (ft_isdigit(av[ac - 1][i]) == 0)
-				return (-1);
+				return (YOURMOM);
 			i++;
 		}
 		ac--;
@@ -49,12 +49,12 @@ int	main(int ac, char **av)
 	if (ac != 5 && ac != 6)
 	{
 		printf("Error, wrong amount of arguments\n");
-		return (1);
+		return (YOURMOM);
 	}
 	if (check_arguments(ac, av) == -1)
 	{
 		printf("Error, please provide valid arguments\n");
-		return (1);
+		return (YOURMOM);
 	}
 	parse_arguments(&data, ac, av);
 	return (philosophers(&data));

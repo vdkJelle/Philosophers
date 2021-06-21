@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 11:29:45 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/06/01 11:28:12 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/06/21 15:14:55 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct	s_data
 
 typedef struct	s_philo
 {
-	pthread_t	philosopher;
 	ssize_t		i;
 	ssize_t		ms_to_die;
 	ssize_t		ms_to_eat;
@@ -40,6 +39,9 @@ typedef struct	s_philo
 	ssize_t		iter;
 	ssize_t		prev_time_ms;
 	ssize_t		time_ms;
+	pthread_t	philosopher;
+	pthread_mutex_t	left_fork;
+	pthread_mutex_t	*right_fork;
 }				t_philo;
 
 /*
