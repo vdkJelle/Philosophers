@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 11:41:10 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/06/21 16:09:48 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/06/23 00:12:19 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int ac, char **av)
 {
 	t_data data;
 
+	get_time();
 	if (ac != 5 && ac != 6)
 	{
 		printf("Error, wrong amount of arguments\n");

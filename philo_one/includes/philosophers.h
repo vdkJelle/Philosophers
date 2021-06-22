@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 11:29:45 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/06/21 15:14:55 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/06/23 00:12:39 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ int		philosophers(t_data *data);
 */
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
+ssize_t	get_time(void);
 
 #endif

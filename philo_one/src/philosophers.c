@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 16:26:13 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/06/21 15:17:09 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/06/23 00:20:14 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static int	free_and_return(t_philo **philo, int err)
 	return (err);
 }
 
-static void intialise_forks(t_philo *philo, ssize_t index)
-{
+// static void intialise_forks(t_philo *philo, ssize_t index)
+// {
 	
-}
+// }
 
 static void	initialise_philo(t_data *data, t_philo *philo, ssize_t index)
 {
@@ -30,7 +30,7 @@ static void	initialise_philo(t_data *data, t_philo *philo, ssize_t index)
 	philo->ms_to_sleep = data->ms_to_sleep;
 	philo->iter = data->iter;
 	philo->prev_time_ms = 0;
-	philo->time_ms = 0;
+	philo->time_ms = get_time();
 	philo->i = index + 1;
 }
 
@@ -58,7 +58,7 @@ int			philosophers(t_data *data)
 	while (i < data->nb_philo)
 	{		
 		initialise_philo(data, &philo[i], i);
-		initialise_forks(&philo[i], i);
+		// initialise_forks(&philo[i], i);
 		pthread_create(&philo[i].philosopher, NULL, philo_action, &philo[i]);
 		i++;
 	}

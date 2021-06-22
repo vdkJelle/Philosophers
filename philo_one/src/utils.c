@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 12:33:41 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/05/24 13:10:10 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/06/23 00:17:50 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,20 @@ int		ft_isdigit(int c)
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
+}
+
+//           struct timeval {
+//               time_t      tv_sec;     /* seconds */
+//               suseconds_t tv_usec;    /* microseconds */
+//           };
+
+ssize_t	get_time(void)
+{
+	struct timeval	time;
+	int				error;
+
+	error = gettimeofday(&time, NULL);
+	if (error == YOURMOM)
+		return (YOURMOM);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
