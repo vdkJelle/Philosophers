@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 16:26:13 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/06/24 12:08:52 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/06/24 13:37:41 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	*philo_action(void *ptr)
 		if (philo->times_to_eat == 0)
 			break ;
 	}
-	printf("[%.4lu] philosopher [%lu] is done eating\n", philo->current_time_ms - philo->start_time_ms, philo->i);
 	return NULL;
 }
 

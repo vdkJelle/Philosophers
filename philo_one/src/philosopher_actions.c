@@ -6,24 +6,30 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/24 11:36:30 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/06/24 12:04:19 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/06/24 13:38:41 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void	eat(t_philo *philo)
+static void	print_message(t_philo *philo, ssize_t time, char *str)
 {
+	pthread_mutex_lock(philo->write_lock);
+	printf("[%.4lu] %lu %s\n", time, philo->i, str);
+	pthread_mutex_unlock(philo->write_lock);
+	return ;
+}
+
+void		eat(t_philo *philo)
+{
+	ssize_t curr_time;
+
 	pthread_mutex_lock(&philo->left_fork);
 	pthread_mutex_lock(philo->right_fork);
-	pthread_mutex_lock(philo->write_lock);
-	philo->current_time_ms = get_time();
-	printf("[%.4lu] philosopher [%lu] has taken a fork\n", philo->current_time_ms - philo->start_time_ms, philo->i);
-	pthread_mutex_unlock(philo->write_lock);
-	pthread_mutex_lock(philo->write_lock);
-	philo->current_time_ms = get_time();
-	printf("[%.4lu] philosopher [%lu] is eating\n", philo->current_time_ms - philo->start_time_ms, philo->i);
-	pthread_mutex_unlock(philo->write_lock);
+	curr_time = get_time() - philo->start_time_ms;
+	print_message(philo, curr_time, "has taken a fork");
+	curr_time = get_time() - philo->start_time_ms;
+	print_message(philo, curr_time, "is eating");
 	usleep(philo->ms_to_eat * 1000);
 	pthread_mutex_unlock(&philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
@@ -32,21 +38,21 @@ void	eat(t_philo *philo)
 	return ;
 }
 
-void	slep(t_philo *philo)
+void		slep(t_philo *philo)
 {
-	pthread_mutex_lock(philo->write_lock);
-	philo->current_time_ms = get_time();
-	printf("[%.4lu] philosopher [%lu] is sleeping\n", philo->current_time_ms - philo->start_time_ms, philo->i);
-	pthread_mutex_unlock(philo->write_lock);
+	ssize_t curr_time;
+
+	curr_time = get_time() - philo->start_time_ms;
+	print_message(philo, curr_time, "is sleeping");
 	usleep(philo->ms_to_sleep * 1000);
 	return ;
 }
 
-void	think(t_philo *philo)
+void		think(t_philo *philo)
 {
-	pthread_mutex_lock(philo->write_lock);
-	philo->current_time_ms = get_time();
-	printf("[%.4lu] philosopher [%lu] is thinking\n", philo->current_time_ms - philo->start_time_ms, philo->i);
-	pthread_mutex_unlock(philo->write_lock);
+	ssize_t curr_time;
+
+	curr_time = get_time() - philo->start_time_ms;
+	print_message(philo, curr_time, "is thinking");
 	return ;
 }

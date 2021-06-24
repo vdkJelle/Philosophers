@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 12:33:41 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/06/24 10:14:00 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/06/24 14:00:15 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,6 @@ int		ft_isdigit(int c)
 		return (1);
 	return (0);
 }
-
-//           struct timeval {
-//               time_t      tv_sec;     /* seconds */
-//               suseconds_t tv_usec;    /* microseconds */
-//           };
 
 ssize_t	get_time(void)
 {
