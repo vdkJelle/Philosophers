@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 16:26:13 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/06/23 00:20:14 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/06/24 12:08:52 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,52 +18,61 @@ static int	free_and_return(t_philo **philo, int err)
 	return (err);
 }
 
-// static void intialise_forks(t_philo *philo, ssize_t index)
-// {
-	
-// }
-
-static void	initialise_philo(t_data *data, t_philo *philo, ssize_t index)
+static void	initialise_philo(t_input *input, t_philo *philo, ssize_t index,
+								pthread_mutex_t *write_lock)
 {
-	philo->ms_to_die = data->ms_to_die;
-	philo->ms_to_eat = data->ms_to_eat;
-	philo->ms_to_sleep = data->ms_to_sleep;
-	philo->iter = data->iter;
-	philo->prev_time_ms = 0;
-	philo->time_ms = get_time();
-	philo->i = index + 1;
+	philo[index].ms_to_die = input->ms_to_die;
+	philo[index].ms_to_eat = input->ms_to_eat;
+	philo[index].ms_to_sleep = input->ms_to_sleep;
+	philo[index].times_to_eat = input->times_to_eat;
+	philo[index].current_time_ms = 0;
+	philo[index].start_time_ms = 0;
+	philo[index].i = index + 1;
+	pthread_mutex_init(&philo[index].left_fork, NULL);
+	if (index + 1 == input->nb_philo)
+		philo[index].right_fork = &philo[0].left_fork;
+	else
+		philo[index].right_fork = &philo[index + 1].left_fork;
+	philo[index].write_lock = write_lock;
 }
 
 static void	*philo_action(void *ptr)
 {
-	pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 	t_philo *philo;
 
 	philo = (t_philo*)ptr;
-	pthread_mutex_lock(&lock);
-	printf("Philo[%ld] reporting in!\n", philo->i);
-	pthread_mutex_unlock(&lock);
+	philo->start_time_ms = get_time();
+	while (1)
+	{
+		eat(philo);
+		slep(philo);
+		think(philo);
+		if (philo->times_to_eat == 0)
+			break ;
+	}
+	printf("[%.4lu] philosopher [%lu] is done eating\n", philo->current_time_ms - philo->start_time_ms, philo->i);
 	return NULL;
 }
 
-int			philosophers(t_data *data)
+int			philosophers(t_input *input)
 {
+	pthread_mutex_t	write_lock;
 	t_philo	*philo;
 	ssize_t	i;
 
-	philo = malloc(sizeof(t_philo) * data->nb_philo);
+	pthread_mutex_init(&write_lock, NULL);
+	philo = malloc(sizeof(t_philo) * input->nb_philo);
 	if (!philo)
 		return (YOURMOM);
 	i = 0;
-	while (i < data->nb_philo)
+	while (i < input->nb_philo)
 	{		
-		initialise_philo(data, &philo[i], i);
-		// initialise_forks(&philo[i], i);
+		initialise_philo(input, philo, i, &write_lock);
 		pthread_create(&philo[i].philosopher, NULL, philo_action, &philo[i]);
 		i++;
 	}
 	i = 0;
-	while (i < data->nb_philo)
+	while (i < input->nb_philo)
 	{
 		if (pthread_join(philo[i].philosopher, NULL) != 0)
 			return (free_and_return(&philo, 1));

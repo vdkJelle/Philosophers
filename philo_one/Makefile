@@ -6,13 +6,14 @@
 #    By: jelvan-d <jelvan-d@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/31 09:58:25 by jelvan-d      #+#    #+#                  #
-#    Updated: 2021/05/24 17:37:43 by jelvan-d      ########   odam.nl          #
+#    Updated: 2021/06/24 11:54:08 by jelvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	philosophers
 SRCS		=	main\
 				philosophers\
+				philosopher_actions\
 				utils
 CFILES		=	$(SRCS:%=src/%.c)
 OFILES		=	$(SRCS:%=obj/%.o)
