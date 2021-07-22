@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 11:29:45 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/06/24 11:55:32 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/07/20 14:28:59 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct	s_input
 
 typedef struct	s_philo
 {
+	int				*dead_philosopher;
 	ssize_t			i;
 	ssize_t			ms_to_die;
 	ssize_t			ms_to_eat;
@@ -39,6 +40,7 @@ typedef struct	s_philo
 	ssize_t			times_to_eat;
 	ssize_t			current_time_ms;
 	ssize_t			start_time_ms;
+	ssize_t			time_last_eaten;
 	pthread_t		philosopher;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	*right_fork;
@@ -58,6 +60,7 @@ int		philosophers(t_input *data);
 /*
 *******************************PHILOSOPHER_ACTIONS.C****************************
 */
+void	print_message(t_philo *philo, ssize_t time, char *str);
 void	eat(t_philo *philo);
 void	slep(t_philo *philo);
 void	think(t_philo *philo);

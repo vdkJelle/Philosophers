@@ -6,13 +6,13 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/24 11:36:30 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/06/24 13:38:41 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/07/20 14:28:50 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-static void	print_message(t_philo *philo, ssize_t time, char *str)
+void	print_message(t_philo *philo, ssize_t time, char *str)
 {
 	pthread_mutex_lock(philo->write_lock);
 	printf("[%.4lu] %lu %s\n", time, philo->i, str);
@@ -29,6 +29,7 @@ void		eat(t_philo *philo)
 	curr_time = get_time() - philo->start_time_ms;
 	print_message(philo, curr_time, "has taken a fork");
 	curr_time = get_time() - philo->start_time_ms;
+	philo->time_last_eaten = curr_time;
 	print_message(philo, curr_time, "is eating");
 	usleep(philo->ms_to_eat * 1000);
 	pthread_mutex_unlock(&philo->left_fork);
