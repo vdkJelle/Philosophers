@@ -6,7 +6,7 @@
 #    By: jelvan-d <jelvan-d@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/31 09:58:25 by jelvan-d      #+#    #+#                  #
-#    Updated: 2021/06/24 11:54:08 by jelvan-d      ########   odam.nl          #
+#    Updated: 2021/07/22 17:28:23 by jelvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ $(NAME):	$(OFILES)
 obj/%.o:	src/%.c
 	@mkdir -p $(@D)	
 	@echo "Compiling... $^"
-	@gcc -o $@ $(FLAGS) -I $(INCLUDES) -lpthread -c $^
+	@gcc -o $@ $(FLAGS) -I $(INCLUDES) -c $^
 
 clean:
 	@echo "Cleaning..."

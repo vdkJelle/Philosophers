@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 16:26:13 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/07/20 14:45:29 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/07/22 17:32:23 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ static void	*monitoring(void *ptr)
 		usleep(500);
 		curr_time = get_time() - philo->start_time_ms;
 	}
-	*philo->dead_philosopher = 1;
+	*philo->dead_philosopher += 1;
 	curr_time = get_time() - philo->start_time_ms;
-	print_message(philo, curr_time, "has died");
+	if (*philo->dead_philosopher == 1)
+		printf("[%.4lu] %lu %s\n", curr_time, philo->i, "has died");
 	return NULL;
 }
 
@@ -68,10 +69,8 @@ static void	*philo_action(void *ptr)
 	while (!*philo->dead_philosopher)
 	{
 		eat(philo);
-		if (!*philo->dead_philosopher)
-			slep(philo);
-		if (!*philo->dead_philosopher)
-			think(philo);
+		slep(philo);
+		think(philo);
 		if (philo->times_to_eat == 0)
 			break ;
 	}
@@ -96,6 +95,12 @@ int			philosophers(t_input *input)
 	while (i < input->nb_philo)
 	{
 		initialise_philo(input, philo, &dead_philosopher, &write_lock);
+		i++;
+	}
+	i = 0;
+	while (i < input->nb_philo)
+	{
+		// initialise_philo(input, philo, &dead_philosopher, &write_lock);
 		pthread_create(&philo[i].philosopher, NULL, philo_action, &philo[i]);
 		pthread_create(&control[i], NULL, monitoring, &philo[i]);
 		i++;
