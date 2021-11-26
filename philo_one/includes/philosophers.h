@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 11:29:45 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/07/20 14:28:59 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/11/26 16:08:46 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ typedef struct	s_philo
 	pthread_mutex_t	*write_lock;
 }				t_philo;
 
+/*
+********************************INITIALISATION.C********************************
+*/
+int		initialise_mutexes(t_philo *philo, int index, ssize_t nb_philo, 
+							pthread_mutex_t *write_lock);
+void	initialise_philo(t_input *input, t_philo *philo, int *dead);
+void	*initialise_monitoring(void *ptr);
+								
 /*
 *************************************MAIN.C*************************************
 */
