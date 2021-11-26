@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/24 11:36:30 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/11/26 16:35:18 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/11/26 16:52:09 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 void	print_message(t_philo *philo, ssize_t time, char *str)
 {
+	ssize_t	curr_time;
+
+	(void)time;
 	pthread_mutex_lock(philo->write_lock);
-	printf("[%.4lu] %lu %s\n", time, philo->i, str);
+	curr_time = get_time() - philo->start_time_ms;
+	if (!*philo->dead_philosopher)
+		printf("[%.4lu] %lu %s\n", curr_time, philo->i, str);
 	pthread_mutex_unlock(philo->write_lock);
 	return ;
 }

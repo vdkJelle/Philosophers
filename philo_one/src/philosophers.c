@@ -6,7 +6,7 @@
 /*   By: jelvan-d <jelvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/24 16:26:13 by jelvan-d      #+#    #+#                 */
-/*   Updated: 2021/11/26 16:38:25 by jelvan-d      ########   odam.nl         */
+/*   Updated: 2021/11/26 16:52:00 by jelvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ static void	*philo_action(void *ptr)
 	while (!*philo->dead_philosopher)
 	{
 		eat(philo);
-		if (!*philo->dead_philosopher)
-			slep(philo);
-		if (!*philo->dead_philosopher)
-			think(philo);
+		slep(philo);
+		think(philo);
 		if (philo->times_to_eat == 0)
 			break ;
 	}
